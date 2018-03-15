@@ -1,4 +1,5 @@
-from player import Color
+from player import Color, Move
+from board import Board
 
 class Piece:
     def __init__(self, row, col, color=Color.WHITE):
@@ -12,8 +13,16 @@ class Piece:
         # each child class will define its own version of is_legal
         pass
 
+    def __str__(self):
+        if self._side:
+            return type(self).piece_type
+        else:
+            return type(self).piece_type.lower()
+
 
 class King(Piece):
+    piece_type = 'K'
+
     def __init__(self, row, col, color=Color.WHITE):
         super().__init__(row, col, color)
 
@@ -21,6 +30,8 @@ class King(Piece):
 
 
 class Queen(Piece):
+    piece_type = 'Q'
+
     def __init__(self, row, col, color=Color.WHITE):
         super().__init__(row, col, color)
 
@@ -28,6 +39,8 @@ class Queen(Piece):
 
 
 class Rook(Piece):
+    piece_type = 'R'
+
     def __init__(self, row, col, color=Color.WHITE):
         super().__init__(row, col, color)
 
@@ -35,6 +48,8 @@ class Rook(Piece):
 
 
 class Bishop(Piece):
+    piece_type = 'B'
+
     def __init__(self, row, col, color=Color.WHITE):
         super().__init__(row, col, color)
 
@@ -42,6 +57,8 @@ class Bishop(Piece):
 
 
 class Knight(Piece):
+    piece_type = 'N'
+
     def __init__(self, row, col, color=Color.WHITE):
         super().__init__(row, col, color)
 
@@ -49,6 +66,8 @@ class Knight(Piece):
 
 
 class Pawn(Piece):
+    piece_type = 'P'
+
     def __init__(self, row, col, color=Color.WHITE):
         super().__init__(row, col, color)
 
