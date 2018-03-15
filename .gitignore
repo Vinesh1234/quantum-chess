@@ -1,0 +1,6 @@
+# this is a file that determines what files/folders stay 'local' to your computer
+# folder python projects this is useful mainly for work-in-progress stuff
+
+# ignore pycache folder
+# this is a folder that has all kinds of useless stuff when you run your python files
+/__pycache__/
