@@ -13,11 +13,11 @@ class Piece:
         # each child class will define its own version of is_legal
         pass
 
-    def __str__(self):
-        if self._side:
-            return type(self).piece_type
+    def __repr__(self):
+        if self._side.value:
+            return self.piece_type
         else:
-            return type(self).piece_type.lower()
+            return self.piece_type.lower()
 
 
 class King(Piece):
@@ -26,7 +26,7 @@ class King(Piece):
     def __init__(self, row, col, color=Color.WHITE):
         super().__init__(row, col, color)
 
-    def is_legal(self, move, board):
+    #def is_legal(self, move, board):
 
 
 class Queen(Piece):
@@ -35,7 +35,7 @@ class Queen(Piece):
     def __init__(self, row, col, color=Color.WHITE):
         super().__init__(row, col, color)
 
-    def is_legal(self, move, board):
+    #def is_legal(self, move, board):
 
 
 class Rook(Piece):
@@ -44,7 +44,7 @@ class Rook(Piece):
     def __init__(self, row, col, color=Color.WHITE):
         super().__init__(row, col, color)
 
-    def is_legal(self, move, board):
+    #def is_legal(self, move, board):
 
 
 class Bishop(Piece):
@@ -53,7 +53,7 @@ class Bishop(Piece):
     def __init__(self, row, col, color=Color.WHITE):
         super().__init__(row, col, color)
 
-    def is_legal(self, move, board):
+    #def is_legal(self, move, board):
 
 
 class Knight(Piece):
@@ -62,7 +62,9 @@ class Knight(Piece):
     def __init__(self, row, col, color=Color.WHITE):
         super().__init__(row, col, color)
 
-    def is_legal(self, move, board):
+    # def is_legal(self, move, board):
+    #     if abs(move.end.row - move.start.row) == 1 and
+    #             abs(move.end.col - move.start.col) == 2:
 
 
 class Pawn(Piece):
@@ -71,4 +73,5 @@ class Pawn(Piece):
     def __init__(self, row, col, color=Color.WHITE):
         super().__init__(row, col, color)
 
-    def is_legal(self, move, board):
+    #def is_legal(self, move, board):
+    
