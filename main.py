@@ -1,6 +1,6 @@
 # imports from other .py files
 from board import Board
-from pieces import *
+from player import Player, Color
 
 
 def main():
@@ -14,7 +14,13 @@ def main():
     3. make the move, switch turn, go to 1.
     """
 
-    return
+    p1 = Player(name="p1", color=Color.WHITE)
+    p2 = Player(name="p2", color=Color.BLACK)
+    game = Board(p1, p2)
+
+    while game.in_progress:
+        game.make_move(game.get_player_move())
+        game.print_board()
 
 
 if __name__ == "__main__":

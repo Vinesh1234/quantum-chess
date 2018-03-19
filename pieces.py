@@ -3,9 +3,13 @@ from board import Board
 
 class Piece:
     def __init__(self, row, col, color=Color.WHITE):
+        assert isinstance(row, int)
+        assert isinstance(col, int)
+        assert isinstance(color, Color)
         self._row = row
         self._col = col
-        self._side = color
+        #could (should?) initilize row and col with Coordinate
+        self.color = color
 
         self._superpositions = [] # this will store the piece's possible locations
 
@@ -14,7 +18,7 @@ class Piece:
         pass
 
     def __repr__(self):
-        if self._side.value:
+        if self.color.value:
             return self.piece_type
         else:
             return self.piece_type.lower()
@@ -74,4 +78,3 @@ class Pawn(Piece):
         super().__init__(row, col, color)
 
     #def is_legal(self, move, board):
-    

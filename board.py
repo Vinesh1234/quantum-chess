@@ -5,12 +5,40 @@ class Board:
     def __init__(self, player_white, player_black):
         #TODO: initilize with custom position (just for fun)
         self.position = self._set_default()
-        self.to_move = player_white
+
+        # self.white and self.black may be quite confusing
+        if isinstance(player_white, str):
+            self.white = Player(player_white, Color.WHITE)
+        elif isinstance(player_white, Player):
+            self.white = player_white
+        else:
+            raise AssertionError("Argument at position 0 should be either type \'str\' or \'Player\'")
+
+        if isinstance(player_black, str):
+            self.black = Player(player_black, Color.BLACK)
+        elif isinstance(player_black, Player):
+            self.black = player_black
+        else:
+            raise AssertionError("Argument at position 1 should be either type \'str\' or \'Player\'")
+
+        self.to_move = self.white
 
         self._game_over = False
 
+    def get_player_move(self):
+        return self.to_move.get_move(self)
+
     def validate_move(self, move):
-        return self.position[move.start[0], move.start[1]].is_legal(move, self)
+        assert isinstance(move, Move)
+        piece = self.get_piece(move.start.row, move.start.col)
+        return piece != 'o' and piece.color is self.to_move.color and piece.is_legal(move, self)
+
+    def make_move(self, move):
+        #TODO
+        """Called when the move has been validated"""
+
+        continue
+
 
     def _set_default(self):
         # unfortunately python doesn't have real 2D lists
@@ -25,6 +53,21 @@ class Board:
 
     def get_piece(self, row, col):
         return self.position[row][col]
+
+    def move_piece(self, move):
+        #TODO
+        """updates row, col, and superpositions of the piece"""
+        continue
+
+    def switch_turn(self):
+        if self.to_move == self.white:
+            self.to_move = self.black
+        else:
+            self.to_move = self.white
+
+    @property
+    def in_progress(self):
+        return not self._game_over
 
     def print_board(self, rotate=False):
         #TODO: rotate: whether the board is flipped. default: white on top
