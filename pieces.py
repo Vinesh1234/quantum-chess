@@ -1,11 +1,17 @@
-from player import Color, Move
-from board import Board
+# from player import Color, Move
+# from board import Board
+import player
+import board
 
 class Piece:
-    def __init__(self, row, col, color=Color.WHITE):
+    def __init__(self, row, col, color=player.Color.WHITE):
+        assert isinstance(row, int)
+        assert isinstance(col, int)
+        assert isinstance(color, player.Color)
         self._row = row
         self._col = col
-        self._side = color
+        #could (should?) initilize row and col with Coordinate
+        self.color = color
 
         self._superpositions = [] # this will store the piece's possible locations
 
@@ -14,7 +20,7 @@ class Piece:
         pass
 
     def __repr__(self):
-        if self._side.value:
+        if self.color.value:
             return self.piece_type
         else:
             return self.piece_type.lower()
@@ -23,7 +29,7 @@ class Piece:
 class King(Piece):
     piece_type = 'K'
 
-    def __init__(self, row, col, color=Color.WHITE):
+    def __init__(self, row, col, color=player.Color.WHITE):
         super().__init__(row, col, color)
 
     #def is_legal(self, move, board):
@@ -32,7 +38,7 @@ class King(Piece):
 class Queen(Piece):
     piece_type = 'Q'
 
-    def __init__(self, row, col, color=Color.WHITE):
+    def __init__(self, row, col, color=player.Color.WHITE):
         super().__init__(row, col, color)
 
     #def is_legal(self, move, board):
@@ -41,7 +47,7 @@ class Queen(Piece):
 class Rook(Piece):
     piece_type = 'R'
 
-    def __init__(self, row, col, color=Color.WHITE):
+    def __init__(self, row, col, color=player.Color.WHITE):
         super().__init__(row, col, color)
 
     #def is_legal(self, move, board):
@@ -50,7 +56,7 @@ class Rook(Piece):
 class Bishop(Piece):
     piece_type = 'B'
 
-    def __init__(self, row, col, color=Color.WHITE):
+    def __init__(self, row, col, color=player.Color.WHITE):
         super().__init__(row, col, color)
 
     #def is_legal(self, move, board):
@@ -59,7 +65,7 @@ class Bishop(Piece):
 class Knight(Piece):
     piece_type = 'N'
 
-    def __init__(self, row, col, color=Color.WHITE):
+    def __init__(self, row, col, color=player.Color.WHITE):
         super().__init__(row, col, color)
 
     # def is_legal(self, move, board):
@@ -70,8 +76,7 @@ class Knight(Piece):
 class Pawn(Piece):
     piece_type = 'P'
 
-    def __init__(self, row, col, color=Color.WHITE):
+    def __init__(self, row, col, color=player.Color.WHITE):
         super().__init__(row, col, color)
 
     #def is_legal(self, move, board):
-    
