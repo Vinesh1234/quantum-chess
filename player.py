@@ -1,5 +1,7 @@
+import re
 from enum import Enum
-from board import Board
+# from board import Board
+import board
 
 class Color(Enum):
     WHITE = True
@@ -11,8 +13,8 @@ class Move:
         assert isinstance(move, str)
         # could also initialize from [Coordinate, Coordinate, Bool]
         self.move = move
-        self.start = Coordinate(move[0], move[1])
-        self.end = Coordinate(move[3], move[4])
+        self.start = board.Coordinate(move[0], move[1])
+        self.end = board.Coordinate(move[3], move[4])
         self._quantum = len(move) > 5
 
     def __str__(self):
@@ -31,5 +33,8 @@ class Player:
     def get_move(self, board):
         #get the user input
         # while not board.validate_move( . . .)
-
-        return # Move(move)
+        valid = r'^[a-h][1-8]-[a-h][1-8]g{0,1}$'
+        move = ''
+        while not bool(re.search(valid, move)):
+            move = input("Please enter your move.\n>> ")
+        return Move(move)

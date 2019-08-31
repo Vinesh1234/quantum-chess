@@ -1,22 +1,26 @@
-from pieces import *
-from player import *
+# from pieces import *
+# from player import *
+import pieces
+import player
 
 class Board:
     def __init__(self, player_white, player_black):
         #TODO: initilize with custom position (just for fun)
         self.position = self._set_default()
 
+        self._history = []
+
         # self.white and self.black may be quite confusing
         if isinstance(player_white, str):
-            self.white = Player(player_white, Color.WHITE)
-        elif isinstance(player_white, Player):
+            self.white = Player(player_white, player.Color.WHITE)
+        elif isinstance(player_white, player.Player):
             self.white = player_white
         else:
             raise AssertionError("Argument at position 0 should be either type \'str\' or \'Player\'")
 
         if isinstance(player_black, str):
-            self.black = Player(player_black, Color.BLACK)
-        elif isinstance(player_black, Player):
+            self.black = Player(player_black, player.Color.BLACK)
+        elif isinstance(player_black, player.Player):
             self.black = player_black
         else:
             raise AssertionError("Argument at position 1 should be either type \'str\' or \'Player\'")
@@ -29,7 +33,7 @@ class Board:
         return self.to_move.get_move(self)
 
     def validate_move(self, move):
-        assert isinstance(move, Move)
+        assert isinstance(move, player.Move)
         piece = self.get_piece(move.start.row, move.start.col)
         return piece != 'o' and piece.color is self.to_move.color and piece.is_legal(move, self)
 
@@ -37,18 +41,22 @@ class Board:
         #TODO
         """Called when the move has been validated"""
 
-        continue
+
+        self._history.append(move)
+        return
 
 
     def _set_default(self):
         # unfortunately python doesn't have real 2D lists
-        board = [[Rook(0,0), Knight(0,1), Bishop(0,2), Queen(0,3), King(0,4), Bishop(0,5), Knight(0,6), Rook(0,7)]]
-        board.append([Pawn(1,i) for i in range(8)])
+        board = [[pieces.Rook(0,0), pieces.Knight(0,1), pieces.Bishop(0,2), pieces.Queen(0,3),
+            pieces.King(0,4), pieces.Bishop(0,5), pieces.Knight(0,6), pieces.Rook(0,7)]]
+        board.append([pieces.Pawn(1,i) for i in range(8)])
         board.extend([['o' for _ in range(8)] for __ in range(4)])
-        board.append([Pawn(6,i,Color.BLACK) for i in range(8)])
-        board.append([Rook(7,0,Color.BLACK), Knight(7,1,Color.BLACK), Bishop(7,2,Color.BLACK),
-                Queen(7,3,Color.BLACK), King(7,4,Color.BLACK), Bishop(7,5,Color.BLACK),
-                Knight(7,6,Color.BLACK), Rook(7,7,Color.BLACK)])
+        board.append([pieces.Pawn(6,i,player.Color.BLACK) for i in range(8)])
+        board.append([pieces.Rook(7,0,player.Color.BLACK), pieces.Knight(7,1,player.Color.BLACK),
+            pieces.Bishop(7,2,player.Color.BLACK), pieces.Queen(7,3,player.Color.BLACK),
+            pieces.King(7,4,player.Color.BLACK), pieces.Bishop(7,5,player.Color.BLACK),
+            pieces.Knight(7,6,player.Color.BLACK), pieces.Rook(7,7,player.Color.BLACK)])
         return board
 
     def get_piece(self, row, col):
@@ -57,7 +65,7 @@ class Board:
     def move_piece(self, move):
         #TODO
         """updates row, col, and superpositions of the piece"""
-        continue
+        return
 
     def switch_turn(self):
         if self.to_move == self.white:
@@ -93,8 +101,3 @@ class Coordinate:
             self.col = ord(col) - 97
         else:
             raise TypeError("Use either Integer or String format")
-
-# t = Player("Teemu", Color.WHITE)
-# m = Player("Michael", Color.BLACK)
-# b = Board(t, m)
-# b.position

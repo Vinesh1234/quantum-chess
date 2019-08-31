@@ -1,6 +1,8 @@
 # imports from other .py files
-from board import Board
-from player import Player, Color
+# from board import Board
+# from player import Player, Color
+import board
+import player
 
 
 def main():
@@ -14,9 +16,9 @@ def main():
     3. make the move, switch turn, go to 1.
     """
 
-    p1 = Player(name="p1", color=Color.WHITE)
-    p2 = Player(name="p2", color=Color.BLACK)
-    game = Board(p1, p2)
+    p1 = player.Player(name="p1", color=player.Color.WHITE)
+    p2 = player.Player(name="p2", color=player.Color.BLACK)
+    game = board.Board(p1, p2)
 
     while game.in_progress:
         game.make_move(game.get_player_move())
